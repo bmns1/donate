@@ -27,14 +27,49 @@
 
         /* Hero Header */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: radial-gradient(circle at center, var(--secondary), var(--primary));
             color: var(--white);
-            padding: 5rem 1rem;
+            padding: 6rem 1rem 5rem 1rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        header h1 { margin: 0; font-size: 3rem; font-weight: 800; letter-spacing: -1px; }
-        header p { font-size: 1.3rem; opacity: 0.9; margin-top: 1rem; font-weight: 300; max-width: 700px; margin-left: auto; margin-right: auto; }
+        /* Festive 30th Anniversary Badge */
+        .anniversary-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.6rem 2rem;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            border: 2px solid rgba(255,255,255,0.4);
+            animation: pulse-gold 2s infinite ease-in-out;
+            position: relative;
+        }
+
+        .anniversary-badge::before, .anniversary-badge::after {
+            content: "✨";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+        .anniversary-badge::before { left: 10px; }
+        .anniversary-badge::after { right: 10px; }
+
+        @keyframes pulse-gold {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+
+        header h1 { margin: 0; font-size: 3.5rem; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
+        header p { font-size: 1.4rem; opacity: 0.9; margin-top: 1rem; font-weight: 300; max-width: 700px; margin-left: auto; margin-right: auto; }
 
         .container {
             max-width: 1200px;
@@ -52,29 +87,23 @@
         .impact-section h2 { color: var(--primary); font-size: 2.2rem; margin-bottom: 1rem; }
         .impact-section p { font-size: 1.15rem; color: var(--text-light); }
 
-        /* --- UPDATED GRID LAYOUT START --- */
-        
-        /* Default: Narrow View (Mobile) -> 1 column x 4 rows */
+        /* GRID LAYOUT (Fixed for 2x2 Wide / 1x4 Narrow) */
         .tiers-grid {
             display: grid;
-            grid-template-columns: 1fr; /* 1 column */
+            grid-template-columns: 1fr; /* Default Mobile: 1 Column */
             gap: 2rem;
             margin-top: 2rem;
-            
-            /* Center the grid and limit width so cards aren't too wide */
-            max-width: 900px; 
+            max-width: 900px; /* Constrain width for centering */
             margin-left: auto;
             margin-right: auto;
-            align-items: stretch; /* Ensures all cards are same height */
+            align-items: stretch;
         }
 
-        /* Wide View (Tablet/Desktop) -> 2 columns x 2 rows */
         @media (min-width: 768px) {
             .tiers-grid {
-                grid-template-columns: 1fr 1fr; /* 2 equal columns */
+                grid-template-columns: 1fr 1fr; /* Wide: 2 Columns */
             }
         }
-        /* --- UPDATED GRID LAYOUT END --- */
 
         /* CARD DESIGN */
         .tier-card {
@@ -102,10 +131,10 @@
             position: relative;
         }
         
-        .tier-1 .tier-header { background: #5eead4; color: #134e4a; } /* Light Teal */
-        .tier-2 .tier-header { background: #14b8a6; } /* Teal */
-        .tier-3 .tier-header { background: #0f766e; } /* Dark Teal */
-        .tier-4 .tier-header { background: #111827; } /* Navy/Black */
+        .tier-1 .tier-header { background: #5eead4; color: #134e4a; }
+        .tier-2 .tier-header { background: #14b8a6; }
+        .tier-3 .tier-header { background: #0f766e; }
+        .tier-4 .tier-header { background: #111827; }
 
         .tier-name { 
             font-size: 1.4rem; 
@@ -141,7 +170,7 @@
         /* Card Body */
         .tier-body { 
             padding: 2rem; 
-            flex-grow: 1; /* Pushes button to bottom */
+            flex-grow: 1; 
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
@@ -195,7 +224,7 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
-            margin-top: auto; /* Ensures spacing if content is short */
+            margin-top: auto; 
         }
 
         .tier-1 .donate-btn { background: #f0fdfa; color: #0f766e; border-top: 1px solid #ccfbf1; }
@@ -227,15 +256,17 @@
 <body>
 
 <header>
+    <div class="anniversary-badge">30 Years of Excellence</div>
+    
     <h1>Silicon Valley Academy: The Builders' Circle</h1>
-    <p>Invest in the next generation of ethical Muslim leaders.</p>
+    <p>Invest in the next generation of ethical leaders.</p>
 </header>
 
 <div class="container">
 
     <div class="impact-section">
         <h2>Scholarships Earned, Not Given.</h2>
-        <p>At SVA, financial aid is a contract of character. Your donation doesn't just pay tuition; it funds a merit-based program requiring community service, leadership training, and academic excellence.</p>
+        <p>As we celebrate our <strong>30th Anniversary</strong>, we are renewing our commitment to accessibility. At SVA, financial aid is a contract of character. Your donation doesn't just pay tuition; it funds a merit-based program requiring community service, leadership training, and academic excellence.</p>
     </div>
 
     <div class="tiers-grid">
@@ -250,7 +281,7 @@
                     <strong>Impact:</strong> Covers essential activity fees, uniforms, or field trips for one scholar.
                 </div>
                 <ul class="perks-list">
-                    <li>Digital "SVA Supporter" Badge</li>
+                    <li>Digital "30th Anniversary" Badge</li>
                     <li>Name listed in Annual Report</li>
                     <li>Quarterly Newsletter updates</li>
                 </ul>
@@ -269,7 +300,7 @@
                 </div>
                 <ul class="perks-list">
                     <li><strong>Handwritten Thank You</strong> from a student beneficiary.</li>
-                    <li>2x VIP Seating at "Annual Gala" and "Graduation Day".</li>
+                    <li>VIP Seating at "Future Leaders Showcase" assembly.</li>
                     <li>All Community Friend perks.</li>
                 </ul>
             </div>
@@ -302,12 +333,12 @@
             </div>
             <div class="tier-body">
                 <div class="impact-box" style="border-color: var(--accent);">
-                    <strong>Impact:</strong> Anchors the scholarship fund, ensuring stability for multiple families.
+                    <strong>Impact:</strong> Anchors the 30th Anniversary scholarship fund, ensuring stability for years to come.
                 </div>
                 <ul class="perks-list">
-                    <li><strong>Naming Rights:</strong> Name the scholarship (e.g., "The Saleh's Family Award").</li>
+                    <li><strong>Naming Rights:</strong> Name the scholarship (e.g., "The [Family Name] Service Award").</li>
                     <li><strong>Tailor the Cause:</strong> Designate funds for Science, Arts, or Service leaders.</li>
-                    <li>Annual Strategy Dinner with Principal and Board.</li>
+                    <li>Annual Strategy Dinner with Principal.</li>
                 </ul>
             </div>
             <a href="#" class="donate-btn">Start a Legacy</a>
