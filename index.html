@@ -52,14 +52,29 @@
         .impact-section h2 { color: var(--primary); font-size: 2.2rem; margin-bottom: 1rem; }
         .impact-section p { font-size: 1.15rem; color: var(--text-light); }
 
-        /* Donation Tiers Grid */
+        /* --- UPDATED GRID LAYOUT START --- */
+        
+        /* Default: Narrow View (Mobile) -> 1 column x 4 rows */
         .tiers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: 1fr; /* 1 column */
             gap: 2rem;
             margin-top: 2rem;
+            
+            /* Center the grid and limit width so cards aren't too wide */
+            max-width: 900px; 
+            margin-left: auto;
+            margin-right: auto;
             align-items: stretch; /* Ensures all cards are same height */
         }
+
+        /* Wide View (Tablet/Desktop) -> 2 columns x 2 rows */
+        @media (min-width: 768px) {
+            .tiers-grid {
+                grid-template-columns: 1fr 1fr; /* 2 equal columns */
+            }
+        }
+        /* --- UPDATED GRID LAYOUT END --- */
 
         /* CARD DESIGN */
         .tier-card {
@@ -207,10 +222,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-
-        @media (max-width: 900px) {
-            .tiers-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-        }
     </style>
 </head>
 <body>
@@ -258,7 +269,7 @@
                 </div>
                 <ul class="perks-list">
                     <li><strong>Handwritten Thank You</strong> from a student beneficiary.</li>
-                    <li>VIP Seating at "Future Leaders Showcase" assembly.</li>
+                    <li>2x VIP Seating at "Annual Gala" and "Graduation Day".</li>
                     <li>All Community Friend perks.</li>
                 </ul>
             </div>
@@ -294,9 +305,9 @@
                     <strong>Impact:</strong> Anchors the scholarship fund, ensuring stability for multiple families.
                 </div>
                 <ul class="perks-list">
-                    <li><strong>Naming Rights:</strong> Name the scholarship (e.g., "The [Family Name] Service Award").</li>
+                    <li><strong>Naming Rights:</strong> Name the scholarship (e.g., "The Saleh's Family Award").</li>
                     <li><strong>Tailor the Cause:</strong> Designate funds for Science, Arts, or Service leaders.</li>
-                    <li>Annual Strategy Dinner with Principal.</li>
+                    <li>Annual Strategy Dinner with Principal and Board.</li>
                 </ul>
             </div>
             <a href="#" class="donate-btn">Start a Legacy</a>
