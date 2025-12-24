@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SVA Donations</title>
     <style>
         :root {
@@ -22,6 +23,8 @@
             --gb-bg-green: #ecfdf5;
         }
 
+        * { box-sizing: border-box; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-light);
@@ -29,13 +32,14 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* --- HEADER SECTION --- */
         header {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: white;
-            padding: 5rem 1rem 8rem 1rem; /* Extra padding bottom for overlap */
+            padding: 4rem 1rem 6rem 1rem; /* Reduced slightly for mobile */
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -53,24 +57,26 @@
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 800;
             margin: 0;
             letter-spacing: -1px;
+            line-height: 1.1;
         }
         
         .header-tagline {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             color: var(--secondary);
             font-weight: 500;
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
+            display: block;
         }
 
         /* --- MAIN CONTAINER --- */
         .container {
             max-width: 1100px;
-            margin: -5rem auto 5rem auto; /* Negative margin to overlap header */
-            padding: 0 1.5rem;
+            margin: -4rem auto 3rem auto; /* Pull up to overlap header */
+            padding: 0 1rem;
             position: relative;
             z-index: 10;
         }
@@ -79,7 +85,7 @@
         .tabs-wrapper {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             border: 1px solid var(--border);
         }
@@ -92,10 +98,10 @@
 
         .tab-btn {
             flex: 1;
-            padding: 1.5rem;
+            padding: 1.5rem 1rem;
             border: none;
             background: transparent;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--text-muted);
             cursor: pointer;
@@ -105,33 +111,32 @@
             justify-content: center;
             gap: 10px;
             position: relative;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .tab-btn svg { width: 20px; height: 20px; fill: currentColor; opacity: 0.7; }
+        .tab-btn svg { width: 20px; height: 20px; fill: currentColor; opacity: 0.7; transition: 0.2s; }
         
         .tab-btn:hover { background: #f1f5f9; color: var(--primary); }
 
         .tab-btn.active {
             background: white;
             color: var(--primary);
-            box-shadow: 0 -2px 0 0 var(--accent) inset; /* Top accent line */
+            box-shadow: 0 -3px 0 0 var(--accent) inset;
         }
-        .tab-btn.active svg { opacity: 1; }
+        .tab-btn.active svg { opacity: 1; transform: scale(1.1); }
 
         /* --- TAB CONTENT AREA --- */
         .tab-body {
             display: none;
-            padding: 3rem;
+            padding: 2.5rem;
             animation: fadeIn 0.3s ease-out;
         }
         .tab-body.active { 
             display: grid; 
-            grid-template-columns: 1.2fr 0.8fr; /* Content Left, Widget Right */
+            grid-template-columns: 1.2fr 0.8fr; /* Desktop: Content Left, Widget Right */
             gap: 3rem;
-        }
-
-        @media (max-width: 900px) {
-            .tab-body.active { grid-template-columns: 1fr; }
+            align-items: start;
         }
 
         @keyframes fadeIn {
@@ -140,9 +145,9 @@
         }
 
         /* --- CONTENT TYPOGRAPHY --- */
-        h2 { font-size: 1.8rem; color: var(--primary); margin-top: 0; }
-        h3 { font-size: 1.1rem; color: var(--text-main); margin: 1.5rem 0 0.5rem 0; font-weight: 700; }
-        p { color: var(--text-muted); margin-bottom: 1.5rem; }
+        h2 { font-size: 1.75rem; color: var(--primary); margin-top: 0; line-height: 1.2; }
+        h3 { font-size: 1.1rem; color: var(--text-main); margin: 1.5rem 0 0.8rem 0; font-weight: 700; }
+        p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1rem; }
 
         /* --- VISUAL FEATURES (ZAKAT) --- */
         .trust-grid {
@@ -171,34 +176,41 @@
         }
 
         /* --- VISUAL FEATURES (SCHOLARSHIP TIERS) --- */
+        .tier-wrapper {
+            border: 1px solid var(--border); 
+            border-radius: 12px; 
+            padding: 0 1.5rem;
+        }
+
         .tier-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1rem 0;
+            padding: 1.2rem 0;
             border-bottom: 1px solid var(--border);
         }
         .tier-row:last-child { border-bottom: none; }
         
-        .tier-info h4 { margin: 0; color: var(--text-main); font-size: 1rem; }
-        .tier-info span { font-size: 0.85rem; color: var(--text-muted); }
+        .tier-info h4 { margin: 0; color: var(--text-main); font-size: 1rem; font-weight: 700; }
+        .tier-info span { font-size: 0.9rem; color: var(--text-muted); display: block; margin-top: 2px; line-height: 1.3; }
         
         .tier-price {
             background: #fffbeb;
             color: #b45309;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
             font-weight: 700;
             font-size: 0.9rem;
             border: 1px solid #fcd34d;
             white-space: nowrap;
+            margin-left: 1rem;
         }
 
         /* --- VISUAL FEATURES (GENERAL BARS) --- */
         .fund-bar-group { margin-bottom: 1.5rem; }
-        .fund-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; }
-        .progress-track { background: #e2e8f0; height: 8px; border-radius: 4px; overflow: hidden; }
-        .progress-fill { height: 100%; border-radius: 4px; }
+        .fund-label { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+        .progress-track { background: #e2e8f0; height: 10px; border-radius: 6px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 6px; }
         
         .fill-edu { background: var(--primary); width: 60%; }
         .fill-fac { background: var(--accent); width: 25%; }
@@ -210,42 +222,73 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.05);
         }
         
         .widget-header {
             text-align: center; font-weight: 600; margin-bottom: 1.2rem;
             display: flex; align-items: center; justify-content: center; gap: 6px;
         }
-        .check-circle { width: 20px; height: 20px; background: #10b981; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .check-circle { width: 22px; height: 22px; background: #10b981; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; }
 
         .freq-toggle {
-            background: #f3f4f6; padding: 4px; border-radius: 8px; display: flex; margin-bottom: 1.5rem;
+            background: #f3f4f6; padding: 4px; border-radius: 8px; display: flex; margin-bottom: 1.2rem;
         }
         .freq-btn {
-            flex: 1; border: none; padding: 10px; border-radius: 6px; font-weight: 600; cursor: pointer; color: var(--text-muted); transition: 0.2s;
+            flex: 1; border: none; padding: 12px; border-radius: 6px; font-weight: 600; cursor: pointer; color: var(--text-muted); transition: 0.2s; font-size: 0.95rem;
+            -webkit-tap-highlight-color: transparent;
         }
         .freq-btn.active { background: var(--gb-bg-green); color: #065f46; border: 1px solid var(--gb-green); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 
         .amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1rem; }
         .amt-btn {
-            background: #f8fafc; border: 1px solid var(--border); padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 1rem;
+            background: #f8fafc; border: 1px solid var(--border); padding: 14px 5px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 1rem;
+            -webkit-tap-highlight-color: transparent;
         }
         .amt-btn:hover { border-color: var(--primary); }
         .amt-btn.selected { background: white; border: 2px solid var(--text-main); }
 
         .input-group {
-            background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 0 1rem; display: flex; align-items: center; height: 50px; margin-bottom: 1.5rem;
+            background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 0 1rem; display: flex; align-items: center; height: 54px; margin-bottom: 1.5rem;
         }
-        .input-group input { border: none; background: transparent; width: 100%; height: 100%; font-size: 1rem; outline: none; padding-left: 5px; }
+        .input-group input { border: none; background: transparent; width: 100%; height: 100%; font-size: 1.1rem; outline: none; padding-left: 5px; color: var(--text-main); }
 
         .donate-submit {
-            width: 100%; background: var(--gb-bg-green); color: #065f46; border: none; padding: 16px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: 0.2s;
+            width: 100%; background: var(--gb-bg-green); color: #065f46; border: none; padding: 18px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
         .donate-submit:hover { background: #6ee7b7; }
         
-        .secure-note { font-size: 0.8rem; color: #94a3b8; text-align: center; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .secure-note { font-size: 0.8rem; color: #94a3b8; text-align: center; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
+        /* --- MOBILE MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            header { padding: 3rem 1rem 5rem 1rem; }
+            header h1 { font-size: 2rem; }
+            .header-tagline { font-size: 1rem; }
+            
+            .container { margin-top: -3.5rem; padding: 0 1rem; }
+            
+            /* Tabs: Stack Icon on top of text to save width */
+            .tab-btn { flex-direction: column; gap: 6px; padding: 1rem 0.5rem; font-size: 0.85rem; line-height: 1.2; }
+            
+            /* Body: Switch to 1 column */
+            .tab-body { padding: 1.5rem; }
+            .tab-body.active { grid-template-columns: 1fr; gap: 2rem; }
+            
+            /* Re-order: Put Widget FIRST on mobile for conversion? Or keep standard. Keeping standard (Info then Widget) */
+            
+            /* Trust Badges: 1 Column */
+            .trust-grid { grid-template-columns: 1fr; }
+            
+            /* Tiers: Stack content */
+            .tier-wrapper { padding: 0 1rem; }
+            .tier-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .tier-price { margin-left: 0; align-self: flex-start; font-size: 0.85rem; }
+            
+            /* General Fund Text */
+            .info-side p { font-size: 0.95rem; }
+        }
     </style>
 </head>
 <body>
@@ -265,11 +308,11 @@
             </button>
             <button class="tab-btn" onclick="openTab(event, 'Scholarship')">
                 <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
-                Scholarship Fund
+                Scholarship
             </button>
             <button class="tab-btn" onclick="openTab(event, 'General')">
                 <svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
-                General Donation
+                General
             </button>
         </div>
 
@@ -300,13 +343,10 @@
                 </div>
 
                 <h3>How it is used:</h3>
-                <ul style="color:var(--text-muted); margin-bottom: 2rem;">
-                    <li><strong>Tuition Assistance:</strong> Providing access to Islamic education for low-income families.</li>
-                    <li><strong>Emergency Fund:</strong> Discrete support for families facing sudden job loss or medical crises.</li>
+                <ul style="color:var(--text-muted); margin-bottom: 2rem; padding-left: 1.2rem;">
+                    <li><strong>Tuition Assistance:</strong> Access to Islamic education for low-income families.</li>
+                    <li><strong>Emergency Fund:</strong> Support for families facing sudden hardship.</li>
                 </ul>
-                <p style="font-style: italic; border-left: 3px solid var(--accent); padding-left: 1rem;">
-                    "Establish prayer, and pay alms-tax. Whatever good you send forth for yourselves, you will ˹certainly˺ find ˹its reward˺ with Allah. Surely Allah is All-Seeing of what you do. (2:110, Qur’an)"
-                </p>
             </div>
 
             <div class="widget-box">
@@ -325,7 +365,7 @@
                 </div>
                 <div class="input-group">
                     <span style="color:#94a3b8; font-weight:600; margin-right:5px;">$</span>
-                    <input type="text" placeholder="Custom Amount">
+                    <input type="number" placeholder="Custom Amount">
                     <span style="color:#94a3b8; font-size:0.9rem; font-weight:600;">USD</span>
                 </div>
                 <button class="donate-submit">Pay Zakat</button>
@@ -339,10 +379,10 @@
         <div id="Scholarship" class="tab-body">
             <div class="info-side">
                 <h2>The Builders' Circle</h2>
-                <p>Join the 30th Anniversary campaign. Your contribution creates merit-based scholarships that reward excellence and service.</p>
+                <p>Join the 30th Anniversary campaign. Your contribution creates merit-based scholarships that reward excellence.</p>
                 
                 <h3>Giving Tiers</h3>
-                <div style="margin-top: 1rem; border: 1px solid var(--border); border-radius: 12px; padding: 0 1.5rem;">
+                <div class="tier-wrapper">
                     
                     <div class="tier-row">
                         <div class="tier-info">
@@ -385,16 +425,16 @@
                     <button class="freq-btn">Monthly</button>
                 </div>
                 <div class="amount-grid">
-                    <button class="amt-btn">$20,000</button>
-                    <button class="amt-btn">$10,000</button>
-                    <button class="amt-btn">$5,000</button>
-                    <button class="amt-btn">$1,000</button>
+                    <button class="amt-btn">$20k</button>
+                    <button class="amt-btn">$10k</button>
+                    <button class="amt-btn">$5k</button>
+                    <button class="amt-btn">$1k</button>
                     <button class="amt-btn">$500</button>
                     <button class="amt-btn">$100</button>
                 </div>
                 <div class="input-group">
                     <span style="color:#94a3b8; font-weight:600; margin-right:5px;">$</span>
-                    <input type="text" placeholder="Other Amount">
+                    <input type="number" placeholder="Other Amount">
                     <span style="color:#94a3b8; font-size:0.9rem; font-weight:600;">USD</span>
                 </div>
                 <button class="donate-submit">Fund a Scholarship</button>
@@ -447,7 +487,7 @@
                 </div>
                 <div class="input-group">
                     <span style="color:#94a3b8; font-weight:600; margin-right:5px;">$</span>
-                    <input type="text" placeholder="Other Amount">
+                    <input type="number" placeholder="Other Amount">
                     <span style="color:#94a3b8; font-size:0.9rem; font-weight:600;">USD</span>
                 </div>
                 <button class="donate-submit">Donate Monthly</button>
@@ -482,3 +522,19 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
