@@ -6,6 +6,7 @@
     <title>Support the SVA Future Scholars</title>
     <style>
         :root {
+            /* SVA Brand Colors */
             --primary: #0f766e;       /* Dark Teal */
             --secondary: #0d9488;     /* Medium Teal */
             --light-teal: #f0fdfa;    /* Background */
@@ -14,6 +15,15 @@
             --text-dark: #334155;
             --text-light: #64748b;
             --border: #e2e8f0;
+
+            /* Givebutter Widget Replica Colors (From Screenshot) */
+            --gb-green-light: #d1fae5;
+            --gb-green-border: #6ee7b7;
+            --gb-green-text: #065f46;
+            --gb-btn-bg: #d1fae5;     /* Light green button bg */
+            --gb-btn-hover: #a7f3d0;
+            --gb-continue: #a7f3d0;   /* The continue button color */
+            --gb-continue-text: #ffffff;
         }
 
         body {
@@ -29,343 +39,433 @@
         header {
             background: radial-gradient(circle at center, var(--secondary), var(--primary));
             color: var(--white);
-            padding: 6rem 1rem 5rem 1rem;
+            padding: 4rem 1rem 3rem 1rem;
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* Festive 30th Anniversary Badge */
-        .anniversary-badge {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 0.6rem 2rem;
-            border-radius: 50px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 2rem;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
-            border: 2px solid rgba(255,255,255,0.4);
-            animation: pulse-gold 2s infinite ease-in-out;
-            position: relative;
-        }
-
-        .anniversary-badge::before, .anniversary-badge::after {
-            content: "✨";
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-        }
-        .anniversary-badge::before { left: 10px; }
-        .anniversary-badge::after { right: 10px; }
-
-        @keyframes pulse-gold {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
-        }
-
-        header h1 { margin: 0; font-size: 3.5rem; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
-        header p { font-size: 1.4rem; opacity: 0.9; margin-top: 1rem; font-weight: 300; max-width: 700px; margin-left: auto; margin-right: auto; }
+        header h1 { margin: 0; font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; }
+        header p { font-size: 1.2rem; opacity: 0.9; margin-top: 0.5rem; font-weight: 300; }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        /* Impact Statement */
-        .impact-section {
-            text-align: center;
-            padding: 3rem 1rem;
-            max-width: 800px;
-            margin: 0 auto 3rem auto;
+        /* --- TAB NAVIGATION STYLES --- */
+        .tabs-container {
+            margin-top: -2rem; /* Pull up slightly */
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid var(--border);
         }
-        .impact-section h2 { color: var(--primary); font-size: 2.2rem; margin-bottom: 1rem; }
-        .impact-section p { font-size: 1.15rem; color: var(--text-light); }
 
-        /* GRID LAYOUT (Fixed for 2x2 Wide / 1x4 Narrow) */
-        .tiers-grid {
-            display: grid;
-            grid-template-columns: 1fr; /* Default Mobile: 1 Column */
-            gap: 2rem;
-            margin-top: 2rem;
-            margin-bottom: 4rem; /* Added margin to separate from widget */
-            max-width: 900px; /* Constrain width for centering */
-            margin-left: auto;
-            margin-right: auto;
-            align-items: stretch;
+        .tabs-nav {
+            display: flex;
+            background: #f1f5f9;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1.5rem;
+            border: none;
+            background: transparent;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover { background: #e2e8f0; color: var(--primary); }
+        
+        .tab-btn.active {
+            background: white;
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .tab-content {
+            display: none; /* Hidden by default */
+            padding: 3rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: grid; /* Show as grid when active */
+            grid-template-columns: 1fr;
+            gap: 3rem;
         }
 
         @media (min-width: 768px) {
-            .tiers-grid {
-                grid-template-columns: 1fr 1fr; /* Wide: 2 Columns */
+            .tab-content.active {
+                grid-template-columns: 1fr 380px; /* Text left, Widget right */
             }
         }
 
-        /* CARD DESIGN */
-        .tier-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            position: relative;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .tier-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); 
+        /* --- CONTENT TYPOGRAPHY --- */
+        .content-side h2 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.8rem;
         }
-
-        /* Tier Header Colors */
-        .tier-header { 
-            padding: 2.5rem 1.5rem; 
-            text-align: center; 
-            color: white; 
-            position: relative;
+        .content-side p {
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
         }
-        
-        .tier-1 .tier-header { background: #5eead4; color: #134e4a; }
-        .tier-2 .tier-header { background: #14b8a6; }
-        .tier-3 .tier-header { background: #0f766e; }
-        .tier-4 .tier-header { background: #111827; }
-
-        .tier-name { 
-            font-size: 1.4rem; 
-            font-weight: 800; 
-            margin-bottom: 8px; 
-            display: block; 
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .tier-amount { 
-            font-size: 1.25rem; 
-            font-weight: 500; 
-            opacity: 0.9; 
-            display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 4px 12px;
-            border-radius: 50px;
-        }
-        .tier-1 .tier-amount { background: rgba(0,0,0,0.1); }
-
-        /* Legacy Badge */
-        .legacy-badge {
-            background: var(--accent);
-            color: white;
-            text-align: center;
-            padding: 8px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Card Body */
-        .tier-body { 
-            padding: 2rem; 
-            flex-grow: 1; 
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .impact-box {
-            background: #f8fafc;
-            padding: 1rem;
-            border-radius: 8px;
+        .info-box {
+            background: var(--light-teal);
             border-left: 4px solid var(--secondary);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
             font-size: 0.95rem;
-            color: var(--text-dark);
-            font-style: italic;
+            border-radius: 4px;
         }
-
-        .perks-list { 
-            list-style: none; 
-            padding: 0; 
-            margin: 0; 
+        .tier-list {
+            list-style: none;
+            padding: 0;
         }
-        
-        .perks-list li { 
-            margin-bottom: 12px; 
-            font-size: 0.95rem; 
-            display: flex; 
-            align-items: flex-start; 
-            color: var(--text-dark);
-            line-height: 1.5;
+        .tier-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
         }
-        
-        .perks-list li::before { 
-            content: "★"; 
-            color: var(--accent); 
-            margin-right: 12px; 
-            font-weight: bold; 
-            font-size: 1.1rem;
-            line-height: 1.2;
-        }
+        .tier-list strong { color: var(--primary); }
 
-        /* Button */
-        .donate-btn {
-            display: block;
-            width: 100%;
-            padding: 1.2rem;
-            text-align: center;
-            font-weight: 800;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: auto; 
-        }
-
-        .tier-1 .donate-btn { background: #f0fdfa; color: #0f766e; border-top: 1px solid #ccfbf1; }
-        .tier-1 .donate-btn:hover { background: #ccfbf1; }
-
-        .tier-2 .donate-btn { background: #ccfbf1; color: #0f766e; }
-        .tier-2 .donate-btn:hover { background: #99f6e4; }
-
-        .tier-3 .donate-btn { background: var(--secondary); color: white; }
-        .tier-3 .donate-btn:hover { background: var(--primary); }
-
-        .tier-4 .donate-btn { background: var(--accent); color: white; }
-        .tier-4 .donate-btn:hover { background: #d97706; }
-
-        /* Footer */
-        .fine-print {
-            text-align: center;
-            margin-top: 5rem;
-            padding-top: 2rem;
-            border-top: 1px solid #cbd5e1;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* Widget Container Styling (Optional centering) */
-        givebutter-widget {
-            display: block;
-            margin: 0 auto;
+        /* --- FAKE GIVEBUTTER WIDGET REPLICA --- */
+        .gb-replica {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             max-width: 100%;
         }
+
+        .gb-header {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .gb-check {
+            color: #10b981; /* Green check color */
+            font-size: 1.2rem;
+        }
+
+        /* Frequency Toggle */
+        .gb-toggle {
+            display: flex;
+            background: #f3f4f6;
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        .gb-toggle-btn {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .gb-toggle-btn.active {
+            background: var(--gb-green-light);
+            color: var(--gb-green-text);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            border: 1px solid var(--gb-green-border);
+        }
+        .gb-toggle-btn.inactive {
+            background: transparent;
+            color: var(--text-light);
+        }
+
+        /* Amount Grid */
+        .gb-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .gb-amount-btn {
+            background: #f3f4f6;
+            border: 1px solid transparent;
+            padding: 12px 5px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+        .gb-amount-btn:hover {
+            background: #e5e7eb;
+        }
+        .gb-amount-btn.selected {
+            background: var(--white);
+            border-color: var(--text-dark);
+            box-shadow: 0 0 0 2px var(--text-dark) inset;
+        }
+
+        /* Other Input */
+        .gb-input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+        }
+        .gb-currency {
+            color: var(--text-light);
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .gb-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 14px 0;
+            font-size: 1rem;
+            outline: none;
+            color: var(--text-dark);
+        }
+        .gb-suffix {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .gb-footer {
+            margin-top: 1rem;
+        }
+        .gb-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        .gb-continue-btn {
+            width: 100%;
+            background: #a3e6cd; /* Matching screenshot muted green */
+            color: #064e3b;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .gb-continue-btn:hover {
+            background: #6ee7b7;
+        }
+
     </style>
 </head>
 <body>
 
 <header>
-    <div class="anniversary-badge">30 Years of Excellence</div>
-    
-    <h1>Silicon Valley Academy: The Builders' Circle</h1>
-    <p>Invest in the next generation of ethical Muslim leaders.</p>
+    <h1>Support Our Future</h1>
+    <p>Secure. Impactful. Transparent.</p>
 </header>
 
 <div class="container">
 
-    <div class="impact-section">
-        <h2>Scholarships Earned, Not Given.</h2>
-        <p>As we celebrate our <strong>30th Anniversary</strong>, we are renewing our commitment to accessibility. At SVA, financial aid is a contract of character. Your donation doesn't just pay tuition; it funds a merit-based program requiring community service, leadership training, and academic excellence.</p>
-    </div>
-
-    <div class="tiers-grid">
-
-        <div class="tier-card tier-1">
-            <div class="tier-header">
-                <span class="tier-name">Community Friend</span>
-                <span class="tier-amount">$100 – $999</span>
-            </div>
-            <div class="tier-body">
-                <div class="impact-box">
-                    <strong>Impact:</strong> Covers essential activity fees, uniforms, or field trips for one scholar.
-                </div>
-                <ul class="perks-list">
-                    <li>Digital "30th Anniversary" Badge</li>
-                    <li>Name listed in Annual Report</li>
-                    <li>Quarterly Newsletter updates</li>
-                </ul>
-            </div>
-            <a href="#" class="donate-btn">Donate</a>
+    <div class="tabs-container">
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab(event, 'Zakat')">Zakat</button>
+            <button class="tab-btn" onclick="openTab(event, 'Scholarship')">Scholarship Fund</button>
+            <button class="tab-btn" onclick="openTab(event, 'General')">General Donation</button>
         </div>
 
-        <div class="tier-card tier-2">
-            <div class="tier-header">
-                <span class="tier-name">Scholar's Guardian</span>
-                <span class="tier-amount">$1,000 – $9,999</span>
-            </div>
-            <div class="tier-body">
-                <div class="impact-box">
-                    <strong>Impact:</strong> Subsidizes tuition for one student for a significant portion of the year.
+        <div id="Zakat" class="tab-content active">
+            <div class="content-side">
+                <h2>Fulfill Your Obligation Locally</h2>
+                <div class="info-box">
+                    <strong>100% Zakat Policy:</strong> All funds donated under this category are restricted strictly for Zakat-eligible families and students. No administrative fees are deducted.
                 </div>
-                <ul class="perks-list">
-                    <li><strong>Handwritten Thank You</strong> from a student beneficiary.</li>
-                    <li>1x VIP Seating at "Annual Gala" and "Graduation Ceremony."</li>
-                    <li>All Community Friend perks.</li>
+                <p>At Silicon Valley Academy, we ensure your Zakat reaches the most deserving members of our community. Your contribution directly supports:</p>
+                <ul class="tier-list">
+                    <li><strong>Tuition Assistance:</strong> Enabling children from low-income families to access high-quality Islamic education.</li>
+                    <li><strong>Emergency Aid:</strong> Short-term relief for families in our school community facing sudden financial hardship.</li>
                 </ul>
+                <p><em>"The believer's shade on the Day of Resurrection will be his charity." - Al-Tirmidhi</em></p>
             </div>
-            <a href="#" class="donate-btn">Donate</a>
+
+            <div class="gb-replica">
+                <div class="gb-header">
+                    <span class="gb-check">✔</span> Choose amount
+                </div>
+                <div class="gb-toggle">
+                    <button class="gb-toggle-btn active">One-time</button>
+                    <button class="gb-toggle-btn inactive">Monthly</button>
+                </div>
+                <div class="gb-grid">
+                    <button class="gb-amount-btn">$1,000</button>
+                    <button class="gb-amount-btn">$500</button>
+                    <button class="gb-amount-btn">$250</button>
+                    <button class="gb-amount-btn">$100</button>
+                    <button class="gb-amount-btn">$55</button>
+                    <button class="gb-amount-btn">$25</button>
+                </div>
+                <div class="gb-input-group">
+                    <span class="gb-currency">$</span>
+                    <input type="text" class="gb-input" placeholder="Other">
+                    <span class="gb-suffix">USD</span>
+                </div>
+                <div class="gb-footer">
+                    <label class="gb-checkbox">
+                        <input type="checkbox"> Add note/comment
+                    </label>
+                    <button class="gb-continue-btn">Continue</button>
+                </div>
+            </div>
         </div>
 
-        <div class="tier-card tier-3">
-            <div class="tier-header">
-                <span class="tier-name">Leadership Partner</span>
-                <span class="tier-amount">$10,000 – $19,999</span>
-            </div>
-            <div class="tier-body">
-                <div class="impact-box">
-                    <strong>Impact:</strong> Fully funds a merit grant, changing the trajectory of a family’s access.
-                </div>
-                <ul class="perks-list">
-                    <li>Impact Report: Anonymous dossier of the student (including their "Change Maker" project).</li>
-                    <li>Personalized Letter from the Board.</li>
-                    <li>Private School Tour & Lunch.</li>
-                    <li>All Scholar's Guardian perks.</li>
+        <div id="Scholarship" class="tab-content">
+            <div class="content-side">
+                <h2>The 30th Anniversary Builders' Circle</h2>
+                <p>Join the circle that builds the future. Your donation funds merit-based scholarships that reward academic excellence and community service.</p>
+                
+                <p><strong>Giving Tiers & Perks:</strong></p>
+                <ul class="tier-list">
+                    <li>
+                        <strong>Community Friend ($100+):</strong> <br>
+                        Includes name in Annual Report & Digital Badge.
+                    </li>
+                    <li>
+                        <strong>Scholar's Guardian ($1,000+):</strong> <br>
+                        Handwritten student letter + VIP Gala Seating.
+                    </li>
+                    <li>
+                        <strong>Leadership Partner ($10,000+):</strong> <br>
+                        Private school tour, Lunch, and Anonymous Student Impact Report.
+                    </li>
+                    <li>
+                        <strong>Legacy Founder ($20,000+):</strong> <br>
+                        Naming rights for a scholarship (e.g., "The [Family Name] Service Award").
+                    </li>
                 </ul>
             </div>
-            <a href="#" class="donate-btn">Donate</a>
-        </div>
 
-        <div class="tier-card tier-4">
-            <div class="legacy-badge">Most Impactful</div>
-            <div class="tier-header">
-                <span class="tier-name">Legacy Founder</span>
-                <span class="tier-amount">$20,000+</span>
-            </div>
-            <div class="tier-body">
-                <div class="impact-box" style="border-color: var(--accent);">
-                    <strong>Impact:</strong> Anchors the 30th Anniversary scholarship fund, ensuring stability for years to come.
+            <div class="gb-replica">
+                <div class="gb-header">
+                    <span class="gb-check">✔</span> Choose amount
                 </div>
-                <ul class="perks-list">
-                    <li>Naming Rights: Name the scholarship (e.g., "The Saleh's Service Award").</li>
-                    <li>Tailor the Cause: Designate funds for Science, Arts, or Service leaders.</li>
-                    <li>Annual Strategy Dinner with Principal and the Board.</li>
-                    <li>All Leadership Partner perks.</li>
-                </ul>
+                <div class="gb-toggle">
+                    <button class="gb-toggle-btn active">One-time</button>
+                    <button class="gb-toggle-btn inactive">Monthly</button>
+                </div>
+                <div class="gb-grid">
+                    <button class="gb-amount-btn">$20,000</button>
+                    <button class="gb-amount-btn">$10,000</button>
+                    <button class="gb-amount-btn">$5,000</button>
+                    <button class="gb-amount-btn">$1,000</button>
+                    <button class="gb-amount-btn">$500</button>
+                    <button class="gb-amount-btn">$100</button>
+                </div>
+                <div class="gb-input-group">
+                    <span class="gb-currency">$</span>
+                    <input type="text" class="gb-input" placeholder="Other">
+                    <span class="gb-suffix">USD</span>
+                </div>
+                <div class="gb-footer">
+                    <label class="gb-checkbox">
+                        <input type="checkbox"> Add note/comment
+                    </label>
+                    <button class="gb-continue-btn">Continue</button>
+                </div>
             </div>
-            <a href="#" class="donate-btn">Start a Legacy</a>
         </div>
 
-    </div>
+        <div id="General" class="tab-content">
+            <div class="content-side">
+                <h2>Sustain Our Home</h2>
+                <p>General donations are the lifeblood of SVA's daily operations. Unlike restricted funds, these gifts give our administration the flexibility to address the most urgent needs as they arise.</p>
+                
+                <div class="info-box" style="border-left-color: var(--accent);">
+                    <strong>Current Priorities:</strong> Campus security upgrades, science lab maintenance, and teacher professional development.
+                </div>
 
-    <givebutter-widget id="pr7eQj"></givebutter-widget>
+                <p>By giving to the General Fund, you ensure that the lights stay on, the technology works, and our teachers have the resources they need to inspire the next generation.</p>
+            </div>
 
-    <div class="fine-print">
-        <p>Silicon Valley Academy is a 501(c)(3) non-profit organization. All donations are tax-deductible. 
-        <br>For questions regarding stock transfers or corporate matching, please contact donate@svaschool.org.</p>
+            <div class="gb-replica">
+                <div class="gb-header">
+                    <span class="gb-check">✔</span> Choose amount
+                </div>
+                <div class="gb-toggle">
+                    <button class="gb-toggle-btn inactive">One-time</button>
+                    <button class="gb-toggle-btn active">Monthly</button>
+                </div>
+                <div class="gb-grid">
+                    <button class="gb-amount-btn">$250</button>
+                    <button class="gb-amount-btn">$100</button>
+                    <button class="gb-amount-btn">$50</button>
+                    <button class="gb-amount-btn">$25</button>
+                    <button class="gb-amount-btn">$15</button>
+                    <button class="gb-amount-btn">$10</button>
+                </div>
+                <div class="gb-input-group">
+                    <span class="gb-currency">$</span>
+                    <input type="text" class="gb-input" placeholder="Other">
+                    <span class="gb-suffix">USD</span>
+                </div>
+                <div class="gb-footer">
+                    <label class="gb-checkbox">
+                        <input type="checkbox"> Add note/comment
+                    </label>
+                    <button class="gb-continue-btn">Continue</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
 
-<script async src="https://widgets.givebutter.com/latest.umd.cjs?acct=joIx9AI0cBT3VbvK&p=other"></script>
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        
+        // Hide all tab content
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+
+        // Remove active class from all buttons
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
 
 </body>
 </html>
