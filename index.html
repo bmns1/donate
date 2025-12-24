@@ -29,11 +29,10 @@
         header {
             background: radial-gradient(circle at center, var(--secondary), var(--primary));
             color: var(--white);
-            padding: 4rem 1rem 3rem 1rem;
+            padding: 6rem 1rem 5rem 1rem;
             text-align: center;
             position: relative;
             overflow: hidden;
-            border-bottom: 5px solid var(--accent);
         }
 
         /* Festive 30th Anniversary Badge */
@@ -46,7 +45,7 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
             border: 2px solid rgba(255,255,255,0.4);
             animation: pulse-gold 2s infinite ease-in-out;
@@ -69,56 +68,32 @@
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
         }
 
-        header h1 { margin: 0; font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
-        header p { font-size: 1.3rem; opacity: 0.95; margin-top: 1rem; font-weight: 300; max-width: 700px; margin-left: auto; margin-right: auto; }
+        header h1 { margin: 0; font-size: 3.5rem; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
+        header p { font-size: 1.4rem; opacity: 0.9; margin-top: 1rem; font-weight: 300; max-width: 700px; margin-left: auto; margin-right: auto; }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
-        }
-
-        /* Video Embed Styling */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            max-width: 100%;
-            background: #000;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
-            margin-bottom: 3rem;
-            margin-top: -3rem; /* Negative margin to pull it up slightly */
-            border: 4px solid white;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
         }
 
         /* Impact Statement */
         .impact-section {
             text-align: center;
-            padding: 1rem 1rem 2rem 1rem;
+            padding: 3rem 1rem;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto 3rem auto;
         }
         .impact-section h2 { color: var(--primary); font-size: 2.2rem; margin-bottom: 1rem; }
         .impact-section p { font-size: 1.15rem; color: var(--text-light); }
 
-        /* GRID LAYOUT */
+        /* GRID LAYOUT (Fixed for 2x2 Wide / 1x4 Narrow) */
         .tiers-grid {
             display: grid;
-            grid-template-columns: 1fr; 
-            gap: 1.5rem;
+            grid-template-columns: 1fr; /* Default Mobile: 1 Column */
+            gap: 2rem;
             margin-top: 2rem;
-            max-width: 900px;
+            max-width: 900px; /* Constrain width for centering */
             margin-left: auto;
             margin-right: auto;
             align-items: stretch;
@@ -126,7 +101,7 @@
 
         @media (min-width: 768px) {
             .tiers-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr; /* Wide: 2 Columns */
             }
         }
 
@@ -144,13 +119,13 @@
         }
 
         .tier-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.1); 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); 
         }
 
         /* Tier Header Colors */
         .tier-header { 
-            padding: 2rem 1.5rem; 
+            padding: 2.5rem 1.5rem; 
             text-align: center; 
             color: white; 
             position: relative;
@@ -162,7 +137,7 @@
         .tier-4 .tier-header { background: #111827; }
 
         .tier-name { 
-            font-size: 1.3rem; 
+            font-size: 1.4rem; 
             font-weight: 800; 
             margin-bottom: 8px; 
             display: block; 
@@ -170,8 +145,8 @@
             letter-spacing: 1px;
         }
         .tier-amount { 
-            font-size: 1.1rem; 
-            font-weight: 600; 
+            font-size: 1.25rem; 
+            font-weight: 500; 
             opacity: 0.9; 
             display: inline-block;
             background: rgba(255,255,255,0.2);
@@ -185,7 +160,7 @@
             background: var(--accent);
             color: white;
             text-align: center;
-            padding: 6px;
+            padding: 8px;
             font-size: 0.75rem;
             font-weight: 800;
             text-transform: uppercase;
@@ -194,7 +169,7 @@
 
         /* Card Body */
         .tier-body { 
-            padding: 1.5rem 2rem 2.5rem 2rem; /* Added extra bottom padding since button is gone */
+            padding: 2rem; 
             flex-grow: 1; 
             display: flex;
             flex-direction: column;
@@ -235,14 +210,43 @@
             line-height: 1.2;
         }
 
+        /* Button */
+        .donate-btn {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            text-align: center;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: auto; 
+        }
+
+        .tier-1 .donate-btn { background: #f0fdfa; color: #0f766e; border-top: 1px solid #ccfbf1; }
+        .tier-1 .donate-btn:hover { background: #ccfbf1; }
+
+        .tier-2 .donate-btn { background: #ccfbf1; color: #0f766e; }
+        .tier-2 .donate-btn:hover { background: #99f6e4; }
+
+        .tier-3 .donate-btn { background: var(--secondary); color: white; }
+        .tier-3 .donate-btn:hover { background: var(--primary); }
+
+        .tier-4 .donate-btn { background: var(--accent); color: white; }
+        .tier-4 .donate-btn:hover { background: #d97706; }
+
         /* Footer */
         .fine-print {
             text-align: center;
-            margin-top: 4rem;
+            margin-top: 5rem;
             padding-top: 2rem;
             border-top: 1px solid #cbd5e1;
             color: var(--text-light);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -253,15 +257,12 @@
 
 <header>
     <div class="anniversary-badge">30 Years of Excellence</div>
-    <h1>The Builders' Circle</h1>
+    
+    <h1>Silicon Valley Academy: The Builders' Circle</h1>
     <p>Invest in the next generation of ethical Muslim leaders.</p>
 </header>
 
 <div class="container">
-
-    <div class="video-container">
-        <iframe src="https://player.vimeo.com/video/1147899626?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="SVA 30th Anniversary"></iframe>
-    </div>
 
     <div class="impact-section">
         <h2>Scholarships Earned, Not Given.</h2>
@@ -285,6 +286,7 @@
                     <li>Quarterly Newsletter updates</li>
                 </ul>
             </div>
+            <a href="#" class="donate-btn">Donate</a>
         </div>
 
         <div class="tier-card tier-2">
@@ -302,6 +304,7 @@
                     <li>All Community Friend perks.</li>
                 </ul>
             </div>
+            <a href="#" class="donate-btn">Donate</a>
         </div>
 
         <div class="tier-card tier-3">
@@ -320,6 +323,7 @@
                     <li>All Scholar's Guardian perks.</li>
                 </ul>
             </div>
+            <a href="#" class="donate-btn">Donate</a>
         </div>
 
         <div class="tier-card tier-4">
@@ -339,6 +343,7 @@
                     <li>All Leadership Partner perks.</li>
                 </ul>
             </div>
+            <a href="#" class="donate-btn">Start a Legacy</a>
         </div>
 
     </div>
@@ -349,6 +354,8 @@
     </div>
 
 </div>
+
+<script async src="https://widgets.givebutter.com/latest.umd.cjs?acct=joIx9AI0cBT3VbvK&p=other"></script>
 
 </body>
 </html>
