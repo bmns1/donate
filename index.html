@@ -93,6 +93,7 @@
             grid-template-columns: 1fr; /* Default Mobile: 1 Column */
             gap: 2rem;
             margin-top: 2rem;
+            margin-bottom: 4rem; /* Added margin to separate from widget */
             max-width: 900px; /* Constrain width for centering */
             margin-left: auto;
             margin-right: auto;
@@ -251,6 +252,13 @@
             margin-left: auto;
             margin-right: auto;
         }
+        
+        /* Widget Container Styling (Optional centering) */
+        givebutter-widget {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -347,6 +355,8 @@
         </div>
 
     </div>
+
+    <givebutter-widget id="pr7eQj"></givebutter-widget>
 
     <div class="fine-print">
         <p>Silicon Valley Academy is a 501(c)(3) non-profit organization. All donations are tax-deductible. 
