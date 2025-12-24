@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +38,7 @@
         header {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: white;
-            padding: 4rem 1rem 6rem 1rem; /* Reduced slightly for mobile */
+            padding: 4rem 1rem 6rem 1rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -75,7 +74,7 @@
         /* --- MAIN CONTAINER --- */
         .container {
             max-width: 1100px;
-            margin: -4rem auto 3rem auto; /* Pull up to overlap header */
+            margin: -4rem auto 3rem auto;
             padding: 0 1rem;
             position: relative;
             z-index: 10;
@@ -175,6 +174,17 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
+        .quran-quote {
+            background: #f8fafc;
+            border-left: 4px solid var(--accent);
+            padding: 1.2rem;
+            font-style: italic;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            margin-top: 2rem;
+            border-radius: 0 8px 8px 0;
+        }
+
         /* --- VISUAL FEATURES (SCHOLARSHIP TIERS) --- */
         .tier-wrapper {
             border: 1px solid var(--border); 
@@ -184,15 +194,20 @@
 
         .tier-row {
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Changed to flex-start for multi-line text */
             justify-content: space-between;
-            padding: 1.2rem 0;
+            padding: 1.5rem 0; /* Increased padding */
             border-bottom: 1px solid var(--border);
         }
         .tier-row:last-child { border-bottom: none; }
         
-        .tier-info h4 { margin: 0; color: var(--text-main); font-size: 1rem; font-weight: 700; }
-        .tier-info span { font-size: 0.9rem; color: var(--text-muted); display: block; margin-top: 2px; line-height: 1.3; }
+        .tier-info h4 { margin: 0 0 6px 0; color: var(--text-main); font-size: 1rem; font-weight: 700; }
+        .tier-info span { 
+            font-size: 0.9rem; 
+            color: var(--text-muted); 
+            display: block; 
+            line-height: 1.5; 
+        }
         
         .tier-price {
             background: #fffbeb;
@@ -204,6 +219,7 @@
             border: 1px solid #fcd34d;
             white-space: nowrap;
             margin-left: 1rem;
+            flex-shrink: 0; /* Prevent price from shrinking */
         }
 
         /* --- VISUAL FEATURES (GENERAL BARS) --- */
@@ -276,8 +292,6 @@
             .tab-body { padding: 1.5rem; }
             .tab-body.active { grid-template-columns: 1fr; gap: 2rem; }
             
-            /* Re-order: Put Widget FIRST on mobile for conversion? Or keep standard. Keeping standard (Info then Widget) */
-            
             /* Trust Badges: 1 Column */
             .trust-grid { grid-template-columns: 1fr; }
             
@@ -311,7 +325,7 @@
                 Scholarship
             </button>
             <button class="tab-btn" onclick="openTab(event, 'General')">
-                <svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
                 General
             </button>
         </div>
@@ -344,9 +358,14 @@
 
                 <h3>How it is used:</h3>
                 <ul style="color:var(--text-muted); margin-bottom: 2rem; padding-left: 1.2rem;">
-                    <li><strong>Tuition Assistance:</strong> Access to Islamic education for low-income families.</li>
-                    <li><strong>Emergency Fund:</strong> Support for families facing sudden hardship.</li>
+                    <li style="margin-bottom: 0.8rem;"><strong>Tuition Assistance:</strong> Enabling children from low-income families to access high-quality Islamic education.</li>
+                    <li><strong>Emergency Aid:</strong> Short-term relief for families in our school community facing sudden financial hardship.</li>
                 </ul>
+
+                <div class="quran-quote">
+                    "Establish prayer, and pay alms-tax. Whatever good you send forth for yourselves, you will ˹certainly˺ find ˹its reward˺ with Allah. Surely Allah is All-Seeing of what you do."
+                    <br><strong style="font-style: normal; font-size: 0.85rem; display: block; margin-top: 8px;">(2:110, Qur’an)</strong>
+                </div>
             </div>
 
             <div class="widget-box">
@@ -381,13 +400,13 @@
                 <h2>The Builders' Circle</h2>
                 <p>Join the 30th Anniversary campaign. Your contribution creates merit-based scholarships that reward excellence.</p>
                 
-                <h3>Giving Tiers</h3>
+                <h3>Giving Tiers & Perks</h3>
                 <div class="tier-wrapper">
                     
                     <div class="tier-row">
                         <div class="tier-info">
                             <h4>Legacy Founder</h4>
-                            <span>Naming rights & Board Dinner</span>
+                            <span>Naming rights for a scholarship (e.g., "The [Family Name] Service Award").</span>
                         </div>
                         <div class="tier-price">$20,000+</div>
                     </div>
@@ -395,7 +414,7 @@
                     <div class="tier-row">
                         <div class="tier-info">
                             <h4>Leadership Partner</h4>
-                            <span>Private Tour & Impact Report</span>
+                            <span>Impact Report with student dossier, Private School Tour & Lunch with the Board.</span>
                         </div>
                         <div class="tier-price">$10,000+</div>
                     </div>
@@ -403,7 +422,7 @@
                     <div class="tier-row">
                         <div class="tier-info">
                             <h4>Scholar's Guardian</h4>
-                            <span>VIP Gala Seating</span>
+                            <span>Handwritten Thank You from a student + VIP Gala Seating.</span>
                         </div>
                         <div class="tier-price">$1,000+</div>
                     </div>
@@ -411,7 +430,7 @@
                     <div class="tier-row">
                         <div class="tier-info">
                             <h4>Community Friend</h4>
-                            <span>Annual Report Mention</span>
+                            <span>Includes name listed in Annual Report & Digital Badge.</span>
                         </div>
                         <div class="tier-price">$100+</div>
                     </div>
@@ -522,19 +541,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
