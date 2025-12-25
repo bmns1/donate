@@ -12,26 +12,26 @@
 
     <style>
         :root {
-            /* THEME COLORS (Match Index-19) */
+            /* THEME COLORS */
             --primary: #459E79;       /* SVA Deep Forest Green */
             --secondary: #81C8AA;     /* Medium Green */
-            --bg-light: #f8fafc;      /* Neutral Slate Background (Fixed from typo in source) */
+            --bg-light: #f8fafc;      /* Neutral Slate Background */
             --accent: #F59E0B;        /* Gold/Orange */
             --white: #ffffff;
             --text-main: #1e293b;     /* Slate 800 */
             --text-muted: #64748b;    /* Slate 500 */
             --border: #e2e8f0;        /* Slate 200 */
             
-            /* Widget Colors */
-            --gb-green: #459E79;      /* Match Primary */
-            --gb-bg-green: #f0fdf4;   /* Very light green */
+            /* Replica Widget Colors (For Zakat/General Tabs) */
+            --gb-green: #459E79;      
+            --gb-bg-green: #f0fdf4;   
             --gb-btn-text: #064e3b;   
         }
 
         * { box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif; /* Updated Font */
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-main);
             margin: 0;
@@ -42,7 +42,6 @@
 
         /* --- HEADER SECTION --- */
         header {
-            /* Updated Gradient to match Index-19 */
             background: radial-gradient(circle at center, var(--secondary), var(--primary));
             color: white;
             padding: 4rem 1rem 6rem 1rem;
@@ -63,7 +62,7 @@
         }
 
         header h1 {
-            font-family: 'Ubuntu', sans-serif; /* Updated Font */
+            font-family: 'Ubuntu', sans-serif;
             font-size: 2.8rem;
             font-weight: 700;
             margin: 0;
@@ -91,8 +90,8 @@
         /* --- TABS NAVIGATION --- */
         .tabs-wrapper {
             background: white;
-            border-radius: 12px; /* Matched Index-19 radius style */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); /* Matched shadow style */
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             overflow: hidden;
             border: 1px solid var(--border);
         }
@@ -130,7 +129,6 @@
         .tab-btn.active {
             background: white;
             color: var(--primary);
-            /* Gold accent bar on top */
             box-shadow: 0 -4px 0 0 var(--accent) inset;
         }
         .tab-btn.active svg { opacity: 1; transform: scale(1.1); }
@@ -185,7 +183,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            border: 1px solid #dcfce7; /* Light green border */
+            border: 1px solid #dcfce7;
         }
         .trust-icon {
             background: white;
@@ -233,8 +231,8 @@
         }
         
         .tier-price {
-            background: #fffbeb; /* Light gold bg */
-            color: #b45309;      /* Dark gold text */
+            background: #fffbeb; 
+            color: #b45309;      
             padding: 4px 12px;
             border-radius: 20px;
             font-weight: 700;
@@ -255,7 +253,7 @@
         .fill-fac { background: var(--accent); width: 25%; }
         .fill-ops { background: var(--text-muted); width: 15%; }
 
-        /* --- WIDGET REPLICA STYLING --- */
+        /* --- WIDGET REPLICA STYLING (For Zakat/General) --- */
         .widget-box {
             background: white;
             border: 1px solid var(--border);
@@ -317,22 +315,17 @@
             
             .container { margin-top: -3.5rem; padding: 0 1rem; }
             
-            /* Tabs: Stack Icon on top of text to save width */
             .tab-btn { flex-direction: column; gap: 6px; padding: 1rem 0.5rem; font-size: 0.85rem; line-height: 1.2; }
             
-            /* Body: Switch to 1 column */
             .tab-body { padding: 1.5rem; }
             .tab-body.active { grid-template-columns: 1fr; gap: 2rem; }
             
-            /* Trust Badges: 1 Column */
             .trust-grid { grid-template-columns: 1fr; }
             
-            /* Tiers: Stack content */
             .tier-wrapper { padding: 0 1rem; }
             .tier-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             .tier-price { margin-left: 0; align-self: flex-start; font-size: 0.85rem; }
             
-            /* General Fund Text */
             .info-side p { font-size: 0.95rem; }
         }
     </style>
@@ -469,31 +462,7 @@
                 </div>
             </div>
 
-            <div class="widget-box">
-                <div class="widget-header"><span class="check-circle">✔</span> Choose amount</div>
-                <div class="freq-toggle">
-                    <button class="freq-btn active">One-time</button>
-                    <button class="freq-btn">Monthly</button>
-                </div>
-                <div class="amount-grid">
-                    <button class="amt-btn">$20k</button>
-                    <button class="amt-btn">$10k</button>
-                    <button class="amt-btn">$5k</button>
-                    <button class="amt-btn">$1k</button>
-                    <button class="amt-btn">$500</button>
-                    <button class="amt-btn">$100</button>
-                </div>
-                <div class="input-group">
-                    <span style="color:#94a3b8; font-weight:600; margin-right:5px;">$</span>
-                    <input type="number" placeholder="Other Amount">
-                    <span style="color:#94a3b8; font-size:0.9rem; font-weight:600;">USD</span>
-                </div>
-                <button class="donate-submit">Fund a Scholarship</button>
-                <div class="secure-note">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    Secure 256-bit Encryption
-                </div>
-            </div>
+            <givebutter-widget id="pr7eQj"></givebutter-widget>
         </div>
 
         <div id="General" class="tab-body">
@@ -570,6 +539,8 @@
         evt.currentTarget.classList.add("active");
     }
 </script>
+
+<script async src="https://widgets.givebutter.com/latest.umd.cjs?acct=joIx9AI0cBT3VbvK&p=other"></script>
 
 </body>
 </html>
