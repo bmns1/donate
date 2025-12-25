@@ -307,6 +307,69 @@
         
         .secure-note { font-size: 0.8rem; color: #94a3b8; text-align: center; margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
+        /* --- DONATION WIZARD STYLES --- */
+        #donation-wizard {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .wizard-step { animation: fadeIn 0.4s ease; }
+        .wizard-input-lg {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .wizard-input-lg:focus { border-color: var(--primary); outline: none; }
+        
+        .paypal-card {
+            background: #fffbeb; /* Gold/Yellow tint */
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            position: relative;
+        }
+        .paypal-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .pp-btn {
+            display: block;
+            background: #003087; /* PayPal Blue */
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .pp-btn:hover { background: #001c64; }
+        .alt-link {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
         /* --- MOBILE MEDIA QUERIES --- */
         @media (max-width: 768px) {
             header { padding: 3rem 1rem 5rem 1rem; }
@@ -462,7 +525,41 @@
                 </div>
             </div>
 
-            <givebutter-widget id="pr7eQj"></givebutter-widget>
+            <div style="width: 100%;">
+                <div id="donation-wizard">
+                    <h3 style="margin-top:0;">Help us maximize your impact.</h3>
+                    <p>How much would you like to donate today?</p>
+                    
+                    <div style="display:flex; gap:10px; justify-content:center; margin-bottom:15px; flex-wrap:wrap;">
+                        <button class="amt-btn" onclick="selectAmount(20000)">$20,000</button>
+                        <button class="amt-btn" onclick="selectAmount(10000)">$10,000</button>
+                        <button class="amt-btn" onclick="selectAmount(1000)">$1,000</button>
+                    </div>
+
+                    <input type="number" id="custom-amount-input" class="wizard-input-lg" placeholder="Enter Amount ($)">
+                    
+                    <button class="donate-submit" onclick="checkDonationLogic()">Continue</button>
+                </div>
+
+                <div id="high-value-route" style="display:none; animation: fadeIn 0.4s;">
+                     <div class="paypal-card">
+                        <div class="paypal-badge">RECOMMENDED</div>
+                        <h4 style="margin:0 0 5px 0; color:#003087;">Avoid Credit Card Fees</h4>
+                        <p style="margin:0; font-size:0.95rem; line-height:1.4;">For donations over $2,000, we recommend using the <strong>PayPal Giving Fund</strong>. They charge 0% fees, ensuring 100% of your gift reaches the students.</p>
+                        
+                        <a href="https://www.paypal.com/us/fundraiser/charity/1238321" target="_blank" class="pp-btn">
+                            Donate with 0% Fees via PayPal
+                        </a>
+                     </div>
+                     <div style="text-align: center;">
+                        <span class="alt-link" onclick="showWidget()">No thanks, I prefer to use the standard form (fees apply)</span>
+                     </div>
+                </div>
+
+                <div id="standard-widget-container" style="display:none; animation: fadeIn 0.4s;">
+                    <givebutter-widget id="pr7eQj"></givebutter-widget>
+                </div>
+            </div>
         </div>
 
         <div id="General" class="tab-body">
@@ -522,6 +619,7 @@
 </div>
 
 <script>
+    /* --- TAB LOGIC --- */
     function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
         
@@ -537,6 +635,39 @@
 
         document.getElementById(tabName).classList.add("active");
         evt.currentTarget.classList.add("active");
+    }
+
+    /* --- SCHOLARSHIP WIZARD LOGIC --- */
+    function selectAmount(val) {
+        document.getElementById('custom-amount-input').value = val;
+    }
+
+    function checkDonationLogic() {
+        const amount = document.getElementById('custom-amount-input').value;
+        const wizard = document.getElementById('donation-wizard');
+        const highValueRoute = document.getElementById('high-value-route');
+        const standardWidget = document.getElementById('standard-widget-container');
+
+        if (!amount) {
+            alert("Please enter a donation amount.");
+            return;
+        }
+
+        // Hide the initial question
+        wizard.style.display = 'none';
+
+        if (parseInt(amount) >= 2000) {
+            // Show 0% Fee Option
+            highValueRoute.style.display = 'block';
+        } else {
+            // Go straight to widget
+            standardWidget.style.display = 'block';
+        }
+    }
+
+    function showWidget() {
+        document.getElementById('high-value-route').style.display = 'none';
+        document.getElementById('standard-widget-container').style.display = 'block';
     }
 </script>
 
